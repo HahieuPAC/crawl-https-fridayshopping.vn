@@ -22,7 +22,7 @@ using System.Text;
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
 var savePathExcel = currentPath.Split("bin")[0] + @"Excel File\";
-const string baseUrl = "https://www.hazzys.com/";
+const string baseUrl = "https://www.hazzys.com";
 
 // Create new instance
 // Tạo một instance mới
@@ -48,6 +48,7 @@ Console.WriteLine("Please do not turn off the app while crawling!");
 foreach (var typeCode in typeCodes)
 {
     var requestUrl = baseUrl + $"/display.do?cmd=getTCategoryMain&TCAT_CD={typeCode}";
+    Console.WriteLine(requestUrl);
 
     // Load HTML to document from requestUrl
     // Load trang web, nạp html vào document từ requestUrl
@@ -57,10 +58,10 @@ foreach (var typeCode in typeCodes)
     // Lấy tất cả các Node chứa thông tin của sản phẩm
     var listNodeProductItem = documentForPagesTypeCode
         .DocumentNode
-        .QuerySelectorAll("div.pro-wrap" + "> div.pro-wrap__items")
+        .QuerySelectorAll("div.pro-wrap"+ "> div.pro-wrap__items")
         .ToList();
+    Console.WriteLine(listNodeProductItem.Count);
 
-    Console.WriteLine(listNodeProductItem);
 
     // Loop for each Node
     // Lặp qua các Node
@@ -72,6 +73,8 @@ foreach (var typeCode in typeCodes)
             .QuerySelector("p.pro-name")
             .InnerText
             .RemoveBreakLineTab();
+
+        
     }
 
 }
