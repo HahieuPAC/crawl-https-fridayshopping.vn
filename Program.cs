@@ -58,7 +58,7 @@ foreach (var typeCode in typeCodes)
     // Lấy tất cả các Node chứa thông tin của sản phẩm
     var listNodeProductItem = documentForPagesTypeCode
         .DocumentNode
-        .QuerySelectorAll("div.pro-wrap"+ "> div.pro-wrap__items")
+        .QuerySelectorAll("div.pro-wrap__items")
         .ToList();
     Console.WriteLine(listNodeProductItem.Count);
 
