@@ -7,7 +7,7 @@ using System.Text;
 
 /// <summary>
 /// 
-/// Data will be crawling from this website: https://fridayshopping.vn
+/// Data will be crawling from this website: https://www.hazzys.com/
 /// You need to have basic knowledge with C#, Web HTML, CSS
 /// If have any bug or question. Please comment in following this link: https://www.code-mega.com/p?q=crawl-data-trich-xuat-du-lieu-website-voi-c-phan-1-2c222jN
 /// Advanced Tools here: https://www.code-mega.com/p?q=crawl-data-trich-xuat-du-lieu-website-voi-c-phan-2-72953tZ
@@ -22,7 +22,7 @@ using System.Text;
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
 var savePathExcel = currentPath.Split("bin")[0] + @"Excel File\";
-const string baseUrl = "https://fridayshopping.vn";
+const string baseUrl = "https://www.hazzys.com/";
 
 // Create new instance
 // Tạo một instance mới
@@ -51,15 +51,27 @@ foreach (var typeCode in typeCodes)
 
     // Load HTML to document from requestUrl
     // Load trang web, nạp html vào document từ requestUrl
-
     var documentForPagesTypeCode = web.Load(requestUrl);
 
     // Get all Node Product
     // Lấy tất cả các Node chứa thông tin của sản phẩm
     var listNodeProductItem = documentForPagesTypeCode
         .DocumentNode
-        .QuerySelectorAll(".pro-wrap__obj")
+        .QuerySelectorAll("div.pro-wrap__items")
         .ToList();
 
-    Console.WriteLine(listNodeProductItem);
+    Console.WriteLine(listNodeProductItem.Count);
+
+    // Loop for each Node
+    // Lặp qua các Node
+    foreach (var node in listNodeProductItem)
+    {
+        // Get Product Name
+        // Lấy tên của sản phẩm
+        var productName = node
+            .QuerySelector("p.pro-name")
+            .InnerText
+            .RemoveBreakLineTab();
+    }
+
 }

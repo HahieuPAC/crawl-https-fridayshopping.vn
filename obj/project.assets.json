@@ -6308,11 +6308,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HIeu\\Downloads\\CrawlDataWebsiteToolBasic\\CrawlDataWebsiteToolBasic.csproj",
+      "projectUniqueName": "C:\\Users\\HIeu\\Documents\\Project\\C#\\crawl-https-fridayshopping.vn\\CrawlDataWebsiteToolBasic.csproj",
       "projectName": "CrawlDataWebsiteToolBasic",
-      "projectPath": "C:\\Users\\HIeu\\Downloads\\CrawlDataWebsiteToolBasic\\CrawlDataWebsiteToolBasic.csproj",
+      "projectPath": "C:\\Users\\HIeu\\Documents\\Project\\C#\\crawl-https-fridayshopping.vn\\CrawlDataWebsiteToolBasic.csproj",
       "packagesPath": "C:\\Users\\HIeu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HIeu\\Downloads\\CrawlDataWebsiteToolBasic\\obj\\",
+      "outputPath": "C:\\Users\\HIeu\\Documents\\Project\\C#\\crawl-https-fridayshopping.vn\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
