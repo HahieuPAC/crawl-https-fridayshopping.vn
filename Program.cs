@@ -58,23 +58,29 @@ foreach (var typeCode in typeCodes)
     // Lấy tất cả các Node chứa thông tin của sản phẩm
     var listNodeProductItem = documentForPagesTypeCode
         .DocumentNode
-        .QuerySelectorAll("div.pro-wrap__items")
+        .QuerySelectorAll("div.banner-pro")
         .ToList();
     Console.WriteLine(listNodeProductItem.Count);
 
+     foreach (var node in listNodeProductItem)
+        {
+            // Get Link Detail of Product
+            // Lấy Link chi tiết của sản phẩm
+            var linkDetail = node
+                .QuerySelector("div.banner-pro__obj > a")
+                .Attributes["href"]
+                .Value
+                .RemoveBreakLineTab();
+            Console.WriteLine(linkDetail);
 
-    // Loop for each Node
-    // Lặp qua các Node
-    foreach (var node in listNodeProductItem)
-    {
-        // Get Product Name
-        // Lấy tên của sản phẩm
-        var productName = node
-            .QuerySelector("p.pro-name")
-            .InnerText
-            .RemoveBreakLineTab();
+            // Get Product Name
+            // Lấy tên của sản phẩm
+            var productName = node
+                .QuerySelector("div.banner-pro__obj")
+                .InnerText
+                .RemoveBreakLineTab();
+            Console.WriteLine(productName);
 
-        
-    }
+        }
 
 }
