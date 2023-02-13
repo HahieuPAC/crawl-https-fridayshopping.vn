@@ -244,3 +244,7 @@ C:/Users/HIeu/Documents/Project/C#/crawl-https-fridayshopping.vn/obj/Debug/net6.
 /home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/obj/Debug/net6.0/ref/CrawlDataWebsiteToolBasic.dll
 /home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/obj/Debug/net6.0/CrawlDataWebsiteToolBasic.pdb
 /home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/obj/Debug/net6.0/CrawlDataWebsiteToolBasic.genruntimeconfig.cache
+/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/bin/Debug/net6.0/selenium-manager/linux/selenium-manager
+/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/bin/Debug/net6.0/selenium-manager/macos/selenium-manager
+/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/bin/Debug/net6.0/selenium-manager/windows/selenium-manager.exe
+/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/bin/Debug/net6.0/WebDriver.dll

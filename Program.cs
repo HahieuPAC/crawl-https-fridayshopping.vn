@@ -4,6 +4,9 @@ using CrawlDataWebsiteToolBasic.Helpers;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using System.Text;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 /// <summary>
 /// 
@@ -24,23 +27,12 @@ var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingA
 var savePathExcel = currentPath.Split("bin")[0] + @"Excel File\";
 const string baseUrl = "https://www.hazzys.com";
 
-// Create new instance
-// Tạo một instance mới
-var web = new HtmlWeb()
-{
-    AutoDetectEncoding = false,
-    OverrideEncoding = Encoding.UTF8
-};
-
 //List mã loại sản phẩm
-var typeCodes = new List<int>() { 10001, 10002, 10003, 10004, 10005 };
+var typeCodes = new List<int>() { 10001, 10002, 10003, 10004, 10005};
 
 // List product crawl
 // List lưu danh sách các sản phẩm Crawl được
 var listDataExport = new List<ProductModel>();
-
-// Spinner
-var spinner = new ConsoleSpinner();
 
 Console.WriteLine("Please do not turn off the app while crawling!");
 
@@ -50,37 +42,25 @@ foreach (var typeCode in typeCodes)
     var requestUrl = baseUrl + $"/display.do?cmd=getTCategoryMain&TCAT_CD={typeCode}";
     Console.WriteLine(requestUrl);
 
+    IWebDriver driver=new ChromeDriver();
+    driver.Navigate().GoToUrl(requestUrl);
+    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(1000));
+
+    var elements = driver.FindElements(By.ClassName("pro-wrap__obj"));
+    Console.WriteLine(elements.Count);
+    
+    foreach (var element in elements)
+    {
+        var nameProduct = element
+        .FindElement(By.ClassName("pro-name"));
+
+        Console.WriteLine(nameProduct.Text);
+    }
+    driver.Close();
+}
+
+
     // Load HTML to document from requestUrl
     // Load trang web, nạp html vào document từ requestUrl
-    var documentForPagesTypeCode = web.Load(requestUrl);
+    
 
-    // Get all Node Product
-    // Lấy tất cả các Node chứa thông tin của sản phẩm
-    var listNodeProductItem = documentForPagesTypeCode
-        .DocumentNode
-        .QuerySelectorAll("div.banner-pro")
-        .ToList();
-    Console.WriteLine(listNodeProductItem.Count);
-
-     foreach (var node in listNodeProductItem)
-        {
-            // Get Link Detail of Product
-            // Lấy Link chi tiết của sản phẩm
-            var linkDetail = node
-                .QuerySelector("div.banner-pro__obj > a")
-                .Attributes["href"]
-                .Value
-                .RemoveBreakLineTab();
-            Console.WriteLine(linkDetail);
-
-            // Get Product Name
-            // Lấy tên của sản phẩm
-            var productName = node
-                .QuerySelector("div.banner-pro__obj")
-                .InnerText
-                .RemoveBreakLineTab();
-            Console.WriteLine(productName);
-
-        }
-
-}
