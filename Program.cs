@@ -46,16 +46,24 @@ foreach (var typeCode in typeCodes)
     driver.Navigate().GoToUrl(requestUrl);
     var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(1000));
 
-    var elements = driver.FindElements(By.ClassName("pro-wrap__obj"));
-    Console.WriteLine(elements.Count);
-    
-    foreach (var element in elements)
-    {
-        var nameProduct = element
+     var stopTime = DateTime.Now.AddMinutes(5);
+        while (DateTime.Now < stopTime)
+        {
+            var elements = driver.FindElements(By.ClassName("pro-wrap__obj"));
+
+            if (elements.Count > 0)
+            {
+                foreach (var element in elements)
+                {
+                    var nameProduct = element
         .FindElement(By.ClassName("pro-name"));
 
         Console.WriteLine(nameProduct.Text);
-    }
+                }
+                break;
+            }
+        }
+
     driver.Close();
 }
 
