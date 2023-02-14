@@ -4,6 +4,7 @@ using CrawlDataWebsiteToolBasic.Helpers;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using System.Text;
+using System.Net;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -16,11 +17,11 @@ using OpenQA.Selenium.Support.UI;
 
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
-var savePathExcel = currentPath.Split("bin")[0] + @"Excel File\";
+var savePathExcel = currentPath.Split("bin")[0];
 const string baseUrl = "https://www.hazzys.com";
 
 //List mã loại sản phẩm
-var typeCodes = new List<int>() { 10001, 10002, 10003, 10004, 10005};
+var typeCodes = new List<int>() { 1,2,3,4,5};
 
 // List product crawl
 // List lưu danh sách các sản phẩm Crawl được
@@ -31,13 +32,13 @@ Console.WriteLine("Please do not turn off the app while crawling!");
 //Loop
 foreach (var typeCode in typeCodes)
 {
-    var requestUrl = baseUrl + $"/display.do?cmd=getTCategoryMain&TCAT_CD={typeCode}";
+    var requestUrl = baseUrl + $"/display.do?cmd=getTCategoryMain&TCAT_CD=1000{typeCode}";
     Console.WriteLine(requestUrl);
 
     IWebDriver driver=new ChromeDriver();
     driver.Navigate().GoToUrl(requestUrl);
     var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(1000));
-    wait.Until(d => d.FindElements(By.ClassName("pro-wrap__items")).Count > 0);
+    wait.Until(d => d.FindElements(By.ClassName("pro-wrap__img")).Count > 0);
 
     var stopTime = DateTime.Now.AddMinutes(5);
         while (DateTime.Now < stopTime)
@@ -67,6 +68,18 @@ foreach (var typeCode in typeCodes)
                     .FindElement(By.CssSelector(".pro-wrap__obj .pro-util .pro-util__info .discount"))
                     .Text;
 
+                    // Tải ảnh
+                    var imageProduct = element
+                    .FindElement(By.CssSelector(".pro-wrap__img img"))
+                    .GetAttribute("src");
+
+                    var fileNameImage = nameProduct + ".jpg";
+                    var pathSaveImage = savePathExcel + fileNameImage;
+
+                    WebClient webClient = new WebClient();
+                    webClient.DownloadFile(new Uri(imageProduct), pathSaveImage);
+
+
                     // Add Product to listDataExport
                     // Thêm sản phẩm vào listDataExport
                     listDataExport.Add(new ProductModel()
@@ -74,7 +87,8 @@ foreach (var typeCode in typeCodes)
                         ProductName = nameProduct,
                         ProductType = typeProduct,
                         DiscountPrice = sellPrice,
-                        OrginPrice = orginPrice
+                        OrginPrice = orginPrice,
+                        ProductNameImg = fileNameImage
                     });
                 }
                 break;
