@@ -16,7 +16,7 @@ using OpenQA.Selenium.Support.UI;
 
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
-var savePathExcel = currentPath.Split("bin")[0] + @"Excel File\";
+var savePathExcel = currentPath.Split("bin")[0] + @"Excel File/";
 const string baseUrl = "https://www.hazzys.com";
 
 //List mã loại sản phẩm
