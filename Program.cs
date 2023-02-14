@@ -16,7 +16,7 @@ using OpenQA.Selenium.Support.UI;
 
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
-var savePathExcel = currentPath.Split("bin")[0] + @"Excel File/";
+var savePathExcel = currentPath.Split("bin")[0] + @"Excel File\";
 const string baseUrl = "https://www.hazzys.com";
 
 //List mã loại sản phẩm
@@ -37,11 +37,13 @@ foreach (var typeCode in typeCodes)
     IWebDriver driver=new ChromeDriver();
     driver.Navigate().GoToUrl(requestUrl);
     var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(1000));
+    wait.Until(d => d.FindElements(By.ClassName("pro-wrap__items")).Count > 0);
 
     var stopTime = DateTime.Now.AddMinutes(5);
         while (DateTime.Now < stopTime)
         {
-            var elements = driver.FindElements(By.ClassName("pro-wrap__obj"));
+            var elements = driver.FindElements(By.ClassName("pro-wrap__items"));
+            Console.WriteLine(elements.Count);
 
             if (elements.Count > 0)
             {
@@ -49,8 +51,9 @@ foreach (var typeCode in typeCodes)
                 {
                     // tên sản phẩm
                     var nameProduct = element
-                    .FindElement(By.ClassName("pro-name")).Text;
+                    .FindElement(By.CssSelector(".pro-wrap__obj .pro-name")).Text;
 
+                    Console.WriteLine(nameProduct);
 
                     // Add Product to listDataExport
                     // Thêm sản phẩm vào listDataExport
