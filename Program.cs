@@ -43,7 +43,6 @@ foreach (var typeCode in typeCodes)
         while (DateTime.Now < stopTime)
         {
             var elements = driver.FindElements(By.ClassName("pro-wrap__items"));
-            Console.WriteLine(elements.Count);
 
             if (elements.Count > 0)
             {
@@ -51,15 +50,31 @@ foreach (var typeCode in typeCodes)
                 {
                     // tên sản phẩm
                     var nameProduct = element
-                    .FindElement(By.CssSelector(".pro-wrap__obj .pro-name")).Text;
+                    .FindElement(By.CssSelector(".pro-wrap__obj .pro-name"))
+                    .Text;
 
-                    Console.WriteLine(nameProduct);
+                    // Phân loại
+                    var typeProduct = element
+                    .FindElement(By.CssSelector(".pro-wrap__obj .pro-brand"))
+                    .Text;
+
+                    // Giá bán
+                    var sellPrice = element
+                    .FindElement(By.CssSelector(".pro-wrap__obj .pro-util .pro-util__sale"))
+                    .Text;
+
+                    var orginPrice = element
+                    .FindElement(By.CssSelector(".pro-wrap__obj .pro-util .pro-util__info .discount"))
+                    .Text;
 
                     // Add Product to listDataExport
                     // Thêm sản phẩm vào listDataExport
                     listDataExport.Add(new ProductModel()
                     {
-                        ProductName = nameProduct
+                        ProductName = nameProduct,
+                        ProductType = typeProduct,
+                        DiscountPrice = sellPrice,
+                        OrginPrice = orginPrice
                     });
                 }
                 break;
@@ -68,8 +83,8 @@ foreach (var typeCode in typeCodes)
 
     driver.Close();
 }
-var fileName = DateTime.Now.Ticks + "Hayzzys-crawl.xlsx";
+var fileName = DateTime.Now.Ticks + "_Hayzzys-crawl.xlsx";
 
 
 // Export data to Excel
-ExportToExcel<ProductModel>.GenerateExcel(listDataExport, savePathExcel + fileName, "hayzzys-crawl");
+ExportToExcel<ProductModel>.GenerateExcel(listDataExport, savePathExcel + fileName, "_hayzzys-crawl");
