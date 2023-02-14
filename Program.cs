@@ -8,14 +8,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-/// <summary>
-/// 
-/// Data will be crawling from this website: https://www.hazzys.com/
-/// You need to have basic knowledge with C#, Web HTML, CSS
-/// If have any bug or question. Please comment in following this link: https://www.code-mega.com/p?q=crawl-data-trich-xuat-du-lieu-website-voi-c-phan-1-2c222jN
-/// Advanced Tools here: https://www.code-mega.com/p?q=crawl-data-trich-xuat-du-lieu-website-voi-c-phan-2-72953tZ
-/// 
-/// </summary>
 /// 
 /// <param name="currentPath"> Get curent path of project | Lấy đường dẫn của chương trình </param>
 /// <param name="savePathExcel"> Path save excel file | Đường dẫn để lưu file excel </param>
@@ -46,7 +38,7 @@ foreach (var typeCode in typeCodes)
     driver.Navigate().GoToUrl(requestUrl);
     var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(1000));
 
-     var stopTime = DateTime.Now.AddMinutes(5);
+    var stopTime = DateTime.Now.AddMinutes(5);
         while (DateTime.Now < stopTime)
         {
             var elements = driver.FindElements(By.ClassName("pro-wrap__obj"));
@@ -55,10 +47,17 @@ foreach (var typeCode in typeCodes)
             {
                 foreach (var element in elements)
                 {
+                    // tên sản phẩm
                     var nameProduct = element
-        .FindElement(By.ClassName("pro-name"));
+                    .FindElement(By.ClassName("pro-name")).Text;
 
-        Console.WriteLine(nameProduct.Text);
+
+                    // Add Product to listDataExport
+                    // Thêm sản phẩm vào listDataExport
+                    listDataExport.Add(new ProductModel()
+                    {
+                        ProductName = nameProduct
+                    });
                 }
                 break;
             }
@@ -66,9 +65,8 @@ foreach (var typeCode in typeCodes)
 
     driver.Close();
 }
+var fileName = DateTime.Now.Ticks + "Hayzzys-crawl.xlsx";
 
 
-    // Load HTML to document from requestUrl
-    // Load trang web, nạp html vào document từ requestUrl
-    
-
+// Export data to Excel
+ExportToExcel<ProductModel>.GenerateExcel(listDataExport, savePathExcel + fileName, "hayzzys-crawl");
