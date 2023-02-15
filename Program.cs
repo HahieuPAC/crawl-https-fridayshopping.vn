@@ -17,7 +17,9 @@ using OpenQA.Selenium.Support.UI;
 
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
-var savePathExcel = currentPath.Split("bin")[0] + @"Excel-File";
+var savePathExcel = Path.Combine(currentPath.Split("bin")[0], "Excel-File");
+
+Console.WriteLine(savePathExcel);
 if (!Directory.Exists(savePathExcel))
 {
     Directory.CreateDirectory(savePathExcel);
@@ -72,18 +74,7 @@ foreach (var typeCode in typeCodes)
                     .FindElement(By.CssSelector(".pro-wrap__obj .pro-util .pro-util__info .discount"))
                     .Text;
 
-                    // Tải ảnh
-                    var imageProduct = element
-                    .FindElement(By.CssSelector(".pro-wrap__img img"))
-                    .GetAttribute("src");
-
-                    var fileNameImage = nameProduct + ".jpg";
-                    var pathSaveImage = savePathExcel + fileNameImage;
-
-                    WebClient webClient = new WebClient();
-                    webClient.DownloadFile(new Uri(imageProduct), pathSaveImage);
-
-
+        
                     // Add Product to listDataExport
                     // Thêm sản phẩm vào listDataExport
                     listDataExport.Add(new ProductModel()
@@ -92,7 +83,6 @@ foreach (var typeCode in typeCodes)
                         ProductType = typeProduct,
                         DiscountPrice = sellPrice,
                         OrginPrice = orginPrice,
-                        ProductNameImg = fileNameImage
                     });
                 }
                 break;
