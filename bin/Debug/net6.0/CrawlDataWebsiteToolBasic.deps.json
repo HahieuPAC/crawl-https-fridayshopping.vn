@@ -13,7 +13,8 @@
           "HtmlAgilityPack": "1.11.46",
           "Microsoft.AspNet.WebApi.Client": "5.2.9",
           "Selenium.Chrome.WebDriver": "85.0.0",
-          "Selenium.WebDriver": "4.8.0"
+          "Selenium.WebDriver": "4.8.0",
+          "Selenium.WebDriver.MicrosoftDriver": "17.17134.0"
         },
         "runtime": {
           "CrawlDataWebsiteToolBasic.dll": {}
@@ -351,6 +352,7 @@
           }
         }
       },
+      "Selenium.WebDriver.MicrosoftDriver/17.17134.0": {},
       "System.AppContext/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -1247,6 +1249,13 @@
       "sha512": "sha512-12/UPRx8JHOKnQTW4vTeLT+gkMPF/2RJFbGn6rGLj9NBffd62PdXYoFTWFeOwywSfNpWcJVyjzk9MXoJjrA0Ww==",
       "path": "selenium.webdriver/4.8.0",
       "hashPath": "selenium.webdriver.4.8.0.nupkg.sha512"
+    },
+    "Selenium.WebDriver.MicrosoftDriver/17.17134.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-22tIqQPNbFqWx32YO9XNKvWOcBu3Y98a+qb98xo3k37TkV/qPz7AbohsfaHBtizQtAqbQ5GHNM7re30uvF+amw==",
+      "path": "selenium.webdriver.microsoftdriver/17.17134.0",
+      "hashPath": "selenium.webdriver.microsoftdriver.17.17134.0.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",

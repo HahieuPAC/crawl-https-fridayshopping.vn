@@ -8,6 +8,7 @@ using System.Net;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Edge;
 
 /// 
 /// <param name="currentPath"> Get curent path of project | Lấy đường dẫn của chương trình </param>
@@ -17,11 +18,12 @@ using OpenQA.Selenium.Support.UI;
 
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
-var savePathExcel = currentPath.Split("bin")[0];
+var savePathExcel = currentPath.Split("bin")[0] +@"Data Crawl\";
+
 const string baseUrl = "https://www.hazzys.com";
 
 //List mã loại sản phẩm
-var typeCodes = new List<int>() { 1,2,3,4,5};
+var typeCodes = new List<int>() { 3};
 
 // List product crawl
 // List lưu danh sách các sản phẩm Crawl được
@@ -35,10 +37,10 @@ foreach (var typeCode in typeCodes)
     var requestUrl = baseUrl + $"/display.do?cmd=getTCategoryMain&TCAT_CD=1000{typeCode}";
     Console.WriteLine(requestUrl);
 
-    IWebDriver driver=new ChromeDriver();
+    var driver = new EdgeDriver(currentPath.Split("bin")[0]);
     driver.Navigate().GoToUrl(requestUrl);
     var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(1000));
-    wait.Until(d => d.FindElements(By.ClassName("pro-wrap__img")).Count > 0);
+    wait.Until(d => d.FindElements(By.ClassName("discount")).Count > 0);
 
     var stopTime = DateTime.Now.AddMinutes(5);
         while (DateTime.Now < stopTime)
@@ -65,7 +67,7 @@ foreach (var typeCode in typeCodes)
                     .Text;
 
                     var orginPrice = element
-                    .FindElement(By.CssSelector(".pro-wrap__obj .pro-util .pro-util__info .discount"))
+                    .FindElement(By.ClassName("discount"))
                     .Text;
 
                     // Tải ảnh
@@ -74,7 +76,8 @@ foreach (var typeCode in typeCodes)
                     .GetAttribute("src");
 
                     var fileNameImage = nameProduct + ".jpg";
-                    var pathSaveImage = savePathExcel + fileNameImage;
+                    var pathSaveImage = savePathExcel+ @"Images\" + fileNameImage;
+           
 
                     WebClient webClient = new WebClient();
                     webClient.DownloadFile(new Uri(imageProduct), pathSaveImage);
