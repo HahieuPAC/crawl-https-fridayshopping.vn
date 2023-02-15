@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/CrawlDataWebsiteToolBasic.csproj": {}
+    "/home/hieu/Documents/Project/C#/crawl-Hayzzys/CrawlDataWebsiteToolBasic.csproj": {}
   },
   "projects": {
-    "/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/CrawlDataWebsiteToolBasic.csproj": {
+    "/home/hieu/Documents/Project/C#/crawl-Hayzzys/CrawlDataWebsiteToolBasic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/CrawlDataWebsiteToolBasic.csproj",
+        "projectUniqueName": "/home/hieu/Documents/Project/C#/crawl-Hayzzys/CrawlDataWebsiteToolBasic.csproj",
         "projectName": "CrawlDataWebsiteToolBasic",
-        "projectPath": "/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/CrawlDataWebsiteToolBasic.csproj",
+        "projectPath": "/home/hieu/Documents/Project/C#/crawl-Hayzzys/CrawlDataWebsiteToolBasic.csproj",
         "packagesPath": "/home/hieu/.nuget/packages/",
-        "outputPath": "/home/hieu/Documents/Project/C#/crawl-https-fridayshopping.vn/obj/",
+        "outputPath": "/home/hieu/Documents/Project/C#/crawl-Hayzzys/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/hieu/.nuget/NuGet/NuGet.Config"

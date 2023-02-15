@@ -17,11 +17,15 @@ using OpenQA.Selenium.Support.UI;
 
 
 var currentPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? "";
-var savePathExcel = currentPath.Split("bin")[0];
+var savePathExcel = currentPath.Split("bin")[0] + @"Excel-File";
+if (!Directory.Exists(savePathExcel))
+{
+    Directory.CreateDirectory(savePathExcel);
+}
 const string baseUrl = "https://www.hazzys.com";
 
 //List mã loại sản phẩm
-var typeCodes = new List<int>() { 1,2,3,4,5};
+var typeCodes = new List<int>() { 1};
 
 // List product crawl
 // List lưu danh sách các sản phẩm Crawl được
